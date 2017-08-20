@@ -12,7 +12,7 @@ test_data = [1, 0, 1, 0]
 
 
 # prior probabilities calculation:
-def prior_prob_cal(dataset):
+def cal_prior_prob(dataset):
     size = len(dataset)
     classes = list(set(row[-1] for row in dataset))
     prior_prob_value = {}
@@ -22,7 +22,7 @@ def prior_prob_cal(dataset):
 
 
 # likelyhood probabilities calculation
-def likelyhood_prob_cal(dataset, test_data, class_value):
+def cal_likelyhood_prob(dataset, test_data, class_value):
     feature_prob = 1.0
     cls_count = [row[-1] for row in dataset].count(class_value)
     for feature in range(len(test_data)):
@@ -36,7 +36,7 @@ def likelyhood_prob_cal(dataset, test_data, class_value):
 
 
 # making class prediction
-def prediction(naive_bayes_result):
+def predict(naive_bayes_result):
     prob = 0.0
     predicted_class = 999
     for predicted_class in naive_bayes_result:
@@ -46,13 +46,13 @@ def prediction(naive_bayes_result):
 
 
 # main function
-def naive_bayes_cal(dataset, test_data):
-    prior_prob_value = prior_prob_cal(dataset)
+def cal_naive_bayes(dataset, test_data):
+    prior_prob_value = cal_prior_prob(dataset)
     result = {}
     for class_value in prior_prob_value:
-        result[class_value] = (likelyhood_prob_cal(dataset, test_data, class_value)) * prior_prob_value[class_value]
+        result[class_value] = (cal_likelyhood_prob(dataset, test_data, class_value)) * prior_prob_value[class_value]
 
-    return prediction(result)
+    return predict(result)
 
 
-print("The test data is going to be in class:", naive_bayes_cal(dataset, test_data))
+print("The test data is going to be in class:", cal_naive_bayes(dataset, test_data))
