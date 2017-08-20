@@ -8,7 +8,7 @@ dataset = [[1, 0, 1, 1, 0],
            [0, 1, 2, 0, 0],
            [1, 1, 1, 1, 1]]
 
-test_data = [1, 0, 1, 0]
+test_data = [1, 0, 0, 0]
 
 
 # prior probabilities calculation:
@@ -38,11 +38,13 @@ def cal_likelyhood_prob(dataset, test_data, class_value):
 # making class prediction
 def predict(naive_bayes_result):
     prob = 0.0
-    predicted_class = 999
+    predicted_class = 0
+    answer = None
     for predicted_class in naive_bayes_result:
         if naive_bayes_result[predicted_class] > prob:
             prob = naive_bayes_result[predicted_class]
-    return predicted_class
+            answer = predicted_class
+    return answer
 
 
 # main function
@@ -51,7 +53,7 @@ def cal_naive_bayes(dataset, test_data):
     result = {}
     for class_value in prior_prob_value:
         result[class_value] = (cal_likelyhood_prob(dataset, test_data, class_value)) * prior_prob_value[class_value]
-
+    print(result)
     return predict(result)
 
 
